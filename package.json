@@ -1,16 +1,18 @@
 {
   "name": "equorn",
-  "version": "0.1.0",
+  "version": "4.4.1",
   "description": "An open-source generative myth-engine that turns structured narrative blueprints into runnable game modules, interactive art, or lore documents",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "pnpm --filter @equorn/web dev",
-    "build": "pnpm -r build",
-    "test": "vitest run",
+    "build": "pnpm run --recursive build",
+    "test": "vitest",
     "test:e2e": "playwright test",
-    "lint": "eslint .",
-    "equorn": "pnpm --filter @equorn/cli start",
-    "prepare": "husky"
+    "lint": "pnpm run --recursive lint",
+    "equorn": "node equorn-cli.js",
+    "prepare": "husky",
+    "clean": "pnpm run --recursive clean"
   },
   "keywords": [
     "myth",

@@ -1,0 +1,74 @@
+world:
+  name: "Abyssal Sanctuary"
+  type: "underwater"
+  theme: "oceanic"
+  
+  description: "A hidden underwater realm where ancient sea creatures guard the secrets of the deep ocean"
+  
+  atmosphere:
+    sound: "Echoing whale songs, distant underwater tremors, flowing currents"
+    light: "Bioluminescent creatures providing ethereal blue-green illumination"
+    weather: "Strong underwater currents, thermal vents creating warm zones"
+  
+  lore:
+    origin: "Formed around ancient thermal vents, this sanctuary has existed since the ocean's creation"
+    purpose: "Preserve oceanic knowledge and maintain the balance of sea life"
+    current_state: "Hidden from surface dwellers, protected by the Deep Wardens"
+
+entities:
+  - type: guardian
+    name: "Thalassa"
+    description: "An ancient leviathan with scales that shimmer like the northern lights beneath the waves"
+    location: "sanctuary_depths"
+    abilities:
+      - "tidal_wave"
+      - "pressure_crush"
+      - "healing_currents"
+      - "bio_luminescence"
+
+locations:
+  - name: "thermal_vents"
+    description: "Ancient volcanic vents that warm the deep waters and sustain unique life forms"
+    connections:
+      - "sanctuary_depths"
+  
+  - name: "sanctuary_depths"
+    description: "The heart of the underwater realm where Thalassa dwells among glowing coral formations"
+    connections:
+      - "thermal_vents"
+      - "kelp_forests"
+      
+  - name: "kelp_forests"
+    description: "Towering underwater forests that sway with the currents, home to countless sea creatures"
+    connections:
+      - "sanctuary_depths"
+      - "surface_entrance"
+
+interactions:
+  - trigger: "approach_guardian"
+    type: "dialogue"
+    responses:
+      - "The depths welcome you, surface dweller. What brings you to our ancient realm?"
+      - "Few have found their way to the Sanctuary. State your purpose."
+      
+  - trigger: "pollute_waters"
+    type: "combat"
+    responses:
+      - "You defile our sacred waters! The ocean's wrath shall consume you!"
+
+export:
+  godot:
+    scene: "Abyssal_Sanctuary"
+    character: "Thalassa"
+    theme: "underwater_realm"
+    primaryColor: "#1E90FF"
+    accentColor: "#00CED1"
+    
+  unity:
+    scene: "AbyssalSanctuary"
+    character: "Thalassa"
+    
+  web:
+    theme: "oceanic"
+    primaryColor: "#1E90FF"
+    accentColor: "#00CED1" 

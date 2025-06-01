@@ -1,0 +1,75 @@
+world:
+  name: "Crystal Spire"
+  type: "tower"
+  theme: "mystical"
+  
+  description: "A towering crystalline spire that pierces the clouds, built by ancient mages as a conduit for magical energies"
+  
+  atmosphere:
+    sound: "Low humming of magical energy, crystal chimes"
+    light: "Ethereal blue glow from crystal formations"
+    weather: "Swirling mists and aurora-like phenomena"
+  
+  lore:
+    origin: "Constructed over centuries by the Circle of Nine, master mages who sought to tap into the ley lines"
+    purpose: "Channel and amplify magical energies, serve as a beacon for magical research"
+    current_state: "Mostly abandoned, but still pulses with residual magic"
+
+entities:
+  - type: guardian
+    name: "Lumina"
+    description: "A towering construct of living crystal, created to protect the tower's magical essence"
+    location: "core_chamber"
+    abilities:
+      - "crystal_shield"
+      - "prism_beam"
+      - "crystal_growth"
+      - "harmonic_resonance"
+
+locations:
+  - name: "observatory_chamber"
+    description: "The topmost chamber filled with magical telescopes and star charts, aurora lights dancing through crystal walls"
+    connections:
+      - "spiral_stairway"
+  
+  - name: "core_chamber"
+    description: "The heart of the tower containing a massive crystal formation that pulses with magical energy"
+    connections:
+      - "spiral_stairway"
+      - "crystal_gardens"
+      
+  - name: "spiral_stairway"
+    description: "A winding crystalline stairway that connects all levels of the tower"
+    connections:
+      - "observatory_chamber"
+      - "core_chamber"
+      - "entrance_hall"
+
+interactions:
+  - trigger: "approach_guardian"
+    type: "dialogue"
+    responses:
+      - "The crystals sing of your arrival, traveler."
+      - "Do you seek the ancient knowledge contained within these walls?"
+      
+  - trigger: "damage_crystals"
+    type: "combat"
+    responses:
+      - "You dare defile the sacred crystals! Face my wrath!"
+
+export:
+  godot:
+    scene: "Crystal_Spire"
+    character: "Lumina"
+    theme: "mystical_tower"
+    primaryColor: "#4A90E2"
+    accentColor: "#87CEEB"
+    
+  unity:
+    scene: "CrystalSpire"
+    character: "Lumina"
+    
+  web:
+    theme: "mystical"
+    primaryColor: "#4A90E2"
+    accentColor: "#87CEEB" 

@@ -1,6 +1,6 @@
 {
   "name": "@equorn/cli",
-  "version": "0.1.0",
+  "version": "4.4.1",
   "description": "Command-line interface for Equorn myth generation",
   "type": "module",
   "main": "dist/index.js",

@@ -1,8 +1,0 @@
-res://scripts/guardian.gd
-res://README.md
-res://scripts/autoload/dialogue_manager.gd
-res://scripts/autoload/game_manager.gd
-res://scenes/Main.tscn
-res://scripts/player.gd
-res://scenes/ui/ability_button.tscn
-res://scenes/entities/player.tscn
