@@ -578,3 +578,4 @@ async function generateDocsProject(seedData: any, outputDir: string, verbose: bo
   }
   return [];
 }
+export { spawnUnityGenerator } from './generators/unity/index.js';
