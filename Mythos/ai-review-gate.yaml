@@ -1,0 +1,18 @@
+// .github/workflows/ai-review-gate.yml
+name: AI Contribution Review
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  ai-review-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check AI Involvement
+        run: |
+          # Scan commit messages for AI indicators
+          git log --oneline --grep="ai:" --grep="copilot:" --grep="generated:"
+          
+      - name: Require Human Approval
+        if: contains(github.event.pull_request.body, '[AI-GENERATED]')
+        uses: ./.github/actions/require-manual-review

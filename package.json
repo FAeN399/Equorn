@@ -1,0 +1,49 @@
+{
+  "name": "equorn",
+  "version": "0.1.0",
+  "description": "An open-source generative myth-engine that turns structured narrative blueprints into runnable game modules, interactive art, or lore documents",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter @equorn/web dev",
+    "build": "pnpm -r build",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "lint": "eslint .",
+    "equorn": "pnpm --filter @equorn/cli start",
+    "prepare": "husky"
+  },
+  "keywords": [
+    "myth",
+    "generator",
+    "narrative",
+    "game",
+    "lore"
+  ],
+  "author": "Equorn Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@playwright/test": "^1.40.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.11.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "@vitest/coverage-c8": "^0.33.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "husky": "^9.1.7",
+    "prettier": "^3.2.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "commander": "^11.1.0"
+  }
+}

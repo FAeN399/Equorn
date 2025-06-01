@@ -1,0 +1,8 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1748741304
+README.md::TextFile::-1::1748740903::0::1::::<><>::
+::res://assets/::1748735764
+::res://scenes/::1748735764
+Main.tscn::PackedScene::-1::1748740903::0::1::::<><>::res://scripts/Entity.gd<>res://scenes/Environment.tscn
+::res://scripts/::1748741220
+guardian.gd::GDScript::-1::1748740470::0::1::::<>Node2D<>::

@@ -1,0 +1,33 @@
+world:
+  name: "Whispering Woods"
+  description: "An ancient forest where guardians protect sacred groves"
+  theme: "mystical_nature"
+
+entities:
+  - type: guardian
+    name: "Thornweave"
+    description: "An ancient tree-spirit bound to protect the grove"
+    location: "sacred_grove"
+    abilities:
+      - "nature_magic"
+      - "root_entangle" 
+      - "bark_armor"
+
+locations:
+  - name: "sacred_grove"
+    description: "A circle of ancient oaks humming with magical energy"
+    connections:
+      - "forest_path"
+    
+  - name: "forest_path"
+    description: "A winding trail through dense undergrowth"
+    connections:
+      - "sacred_grove"
+      - "village_edge"
+
+interactions:
+  - trigger: "approach_guardian"
+    type: "dialogue"
+    responses:
+      - "Who dares enter the sacred grove?"
+      - "State your purpose, wanderer."

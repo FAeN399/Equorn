@@ -1,0 +1,69 @@
+site_name: Equorn Documentation
+site_description: Documentation for the Equorn generative myth-engine
+site_author: Equorn Team
+site_url: https://equorn.io/docs
+
+repo_name: equorn/equorn
+repo_url: https://github.com/equorn/equorn
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: indigo
+    accent: teal
+  font:
+    text: Montserrat
+    code: Fira Code
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - content.code.annotate
+    - content.tabs.link
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - meta
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quick-start.md
+    - First Project: getting-started/first-project.md
+  - Concepts:
+    - Seed Files: concepts/seed-files.md
+    - Entity Types: concepts/entity-types.md
+    - Relationships: concepts/relationships.md
+    - Environments: concepts/environments.md
+  - Guides:
+    - CLI Usage: guides/cli-usage.md
+    - Web Dashboard: guides/web-dashboard.md
+    - Custom Templates: guides/custom-templates.md
+    - Integration: guides/integration.md
+  - Reference:
+    - API: reference/api.md
+    - Configuration: reference/configuration.md
+    - Schema: reference/schema.md
+  - Contributing: CONTRIBUTING.md
+
+plugins:
+  - search
+  - minify:
+      minify_html: true

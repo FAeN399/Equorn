@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Build outputs
+dist/
+build/
+*.exe
+.next/
+*//.next/
+
+# Environment and config files
+.env
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE/Editor files
+.vscode/
+.cursor/
+.continue/
+
+# Personal files and other projects (not part of Equorn)
+PyHexForge/
+Projects/HexCard_Forge-_Nexus/
+Projects/Hex_Card_Forge/
+Projects/animaad-inane/
+Projects/Geometry Forge/
+Projects/SynFlict/
+Projects/Inner-Wild/
+Projects/**/
+
+# System files
+NTUSER.DAT*
+ntuser.dat*
+AppData/
+*.pub
+*.pyc
+__pycache__/
+
+# Temporary files
+*.tmp
+*.temp
+New Text Document*
+*.html.txt 

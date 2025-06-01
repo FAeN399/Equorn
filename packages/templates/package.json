@@ -1,0 +1,26 @@
+{
+  "name": "@equorn/templates",
+  "version": "0.1.0",
+  "description": "Official seed and project templates for Equorn",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "keywords": [
+    "templates",
+    "myth",
+    "generator"
+  ],
+  "author": "Equorn Team",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/node": "^20.17.57",
+    "@types/fs-extra": "^11.0.4"
+  },
+  "dependencies": {
+    "fs-extra": "^11.2.0"
+  }
+}

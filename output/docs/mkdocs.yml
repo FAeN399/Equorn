@@ -1,0 +1,40 @@
+# MkDocs Configuration
+# Generated with Equorn
+
+# Site information
+site_name: Test World
+site_description: A test world for unit tests
+site_author: Generated with Equorn
+
+# Theme settings
+theme:
+  name: material
+
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.expand
+    - navigation.indexes
+    - toc.integrate
+    - content.code.copy
+
+# Navigation structure
+nav:
+  - Home: index.md
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - meta
+  - tables
+
+# Extra configuration
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/yourusername/equorn

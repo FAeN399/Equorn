@@ -1,0 +1,81 @@
+name: Forest Guardian
+version: 1.0.0
+author: Equorn Team
+description: A mythical guardian that protects an ancient forest
+
+# Core entity definition
+entity:
+  name: Sylvan Sentinel
+  type: guardian
+  alignment: neutral-good
+  
+  # Physical attributes
+  appearance:
+    form: humanoid
+    height: tall
+    features:
+      - body: "bark-like skin with moss patterns"
+      - eyes: "glowing amber"
+      - hair: "flowing vines with small flowers"
+    
+  # Powers and abilities
+  powers:
+    - name: Forest Communion
+      description: Can communicate with all plants and animals in the forest
+    - name: Root Network
+      description: Can travel through root systems to appear anywhere in the forest
+    - name: Seasonal Renewal
+      description: Can accelerate growth and healing of natural entities
+  
+  # History and lore
+  lore:
+    origin: >
+      Born from the collective consciousness of the ancient trees during
+      the First Deforestation, when humans began to encroach upon the sacred woods.
+    purpose: To maintain balance between civilization and wilderness
+    weaknesses: Cannot survive long outside forest boundaries
+    
+  # Relationships with other entities
+  relationships:
+    - entity: Local Village
+      type: cautious alliance
+      notes: Protects villagers who respect the forest, warns those who don't
+    - entity: Timber Company
+      type: adversary
+      notes: Actively sabotages logging operations through non-violent means
+    
+# Environment definition
+environment:
+  name: Whispering Woods
+  type: ancient forest
+  features:
+    - Heart Tree: The central node of the guardian's power
+    - Mist Pools: Sacred waters with healing properties
+    - Boundary Stones: Mark the edges of the protected realm
+  
+  seasons:
+    - name: Awakening
+      events: ["Guardian's power is strongest", "New spirits emerge"]
+    - name: Slumber
+      events: ["Guardian retreats to Heart Tree", "Forest paths shift"]
+      
+# Quest hooks for gameplay
+quests:
+  - name: The Broken Boundary
+    trigger: A boundary stone has been removed
+    objective: Track who moved it and why
+    
+  - name: Seasonal Imbalance
+    trigger: The forest hasn't shifted to Slumber season
+    objective: Find what's disrupting the natural cycle
+
+# Export options
+export:
+  godot:
+    scene: "res://scenes/forest_realm.tscn"
+    character: "res://characters/guardian.tscn"
+  web:
+    theme: dark-nature
+    fonts:
+      heading: "Merriweather"
+      body: "Montserrat"

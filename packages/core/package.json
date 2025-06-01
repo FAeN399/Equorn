@@ -1,0 +1,31 @@
+{
+  "name": "@equorn/core",
+  "version": "4.4.1",
+  "description": "Core seed parser and generator engine for Equorn",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest"
+  },
+  "keywords": [
+    "myth",
+    "generator",
+    "narrative"
+  ],
+  "author": "Equorn Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  },
+  "dependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "fs-extra": "^11.3.0",
+    "js-yaml": "^4.1.0",
+    "zod": "^3.22.4"
+  }
+}

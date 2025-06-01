@@ -1,0 +1,6 @@
+# Prevents local cruft from bloating the build context
+.git
+node_modules
+.env
+dist
+coverage
