@@ -1,0 +1,65 @@
+name: "The Shattered Crown Quest"
+description: "An epic quest to restore the ancient crown and save the kingdom"
+version: "1.0.0"
+author: "Equorn Team"
+
+entity:
+  name: "Quest Giver"
+  description: "An ancient sage who holds the key to the quest"
+  type: "npc"
+  alignment: "good"
+  abilities:
+    - "Ancient Knowledge"
+    - "Prophecy Reading"
+    - "Magical Guidance"
+  dialogue:
+    - "The crown has been shattered into three pieces..."
+    - "Only a true hero can reunite the fragments"
+    - "Beware the guardians that protect each piece"
+
+environment:
+  name: "The Forgotten Ruins"
+  description: "Ancient ruins where the quest begins"
+  type: "dungeon"
+  atmosphere: "mysterious"
+  features:
+    - "Crumbling stone walls"
+    - "Mystical glowing runes"
+    - "Hidden passages"
+    - "Ancient altars"
+
+quest:
+  title: "The Shattered Crown"
+  objective: "Collect the three crown fragments and restore the ancient artifact"
+  difficulty: "epic"
+  rewards:
+    - "Crown of Ancient Kings"
+    - "10000 gold pieces"
+    - "Title: Crown Bearer"
+  stages:
+    - name: "Fragment of Power"
+      description: "Retrieve the first fragment from the Fire Temple"
+      location: "Fire Temple"
+      guardian: "Flame Elemental"
+    - name: "Fragment of Wisdom"
+      description: "Retrieve the second fragment from the Ice Caverns"
+      location: "Ice Caverns"
+      guardian: "Frost Giant"
+    - name: "Fragment of Spirit"
+      description: "Retrieve the final fragment from the Sky Tower"
+      location: "Sky Tower"
+      guardian: "Wind Dragon"
+
+artifacts:
+  - name: "Crown Fragment (Power)"
+    description: "A golden fragment that pulses with inner fire"
+    type: "quest_item"
+    power: "Increases strength and combat abilities"
+  - name: "Crown Fragment (Wisdom)"
+    description: "A silver fragment that glows with cold light"
+    type: "quest_item"
+    power: "Increases magical knowledge and mana"
+  - name: "Crown Fragment (Spirit)"
+    description: "A crystal fragment that seems to float on its own"
+    type: "quest_item"
+    power: "Increases speed and agility" 

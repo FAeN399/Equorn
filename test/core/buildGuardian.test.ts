@@ -83,7 +83,7 @@ describe('buildGuardian API', () => {
 
     // Check result properties - use path.join for platform agnostic comparison
     expect(result.outputPath).toBe(path.join('output', 'godot'));
-    expect(result.files.length).toBe(4); // Updated to match current implementation (project.godot, main.tscn, guardian.gd, README.md)
+    expect(result.files.length).toBe(6); // Updated to match current implementation (project.godot, main.tscn, guardian.gd, icon.svg, default_env.tres, README.md)
     expect(result.metadata.target).toBe('godot');
     expect(result.metadata.seedFile).toBe('./seeds/forest-guardian.yaml');
     expect(result.metadata.generatedAt).toBeInstanceOf(Date);

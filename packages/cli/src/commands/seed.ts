@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import path from 'node:path';
 import fs from 'node:fs';
+import { Command } from 'commander';
 import { generateFromSeed } from '@equorn/core';
 
 interface SeedCommandOptions {
@@ -9,7 +10,7 @@ interface SeedCommandOptions {
   verbose?: boolean;
 }
 
-export async function seedCommand(
+async function seedCommandAction(
   seedFile: string,
   options: SeedCommandOptions
 ): Promise<void> {
@@ -86,3 +87,13 @@ export async function seedCommand(
     process.exit(1);
   }
 }
+
+export const seedCommand = new Command('seed')
+  .description('Generate a project from a seed file')
+  .argument('<seedPath>', 'Path to the seed file (YAML or JSON)')
+  .option('-t, --target <target>', 'Target platform (godot, unity, web, docs)', 'web')
+  .option('-o, --output <dir>', 'Output directory for generated files')
+  .option('-v, --verbose', 'Enable verbose output')
+  .action(seedCommandAction);
+
+export default seedCommand;

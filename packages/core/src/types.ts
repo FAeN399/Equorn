@@ -11,15 +11,35 @@ export interface SeedConfig {
   environment?: EnvironmentConfig;
   quests?: QuestConfig[];
   export?: ExportConfig;
+  // Enhanced narrative fields
+  characters?: Record<string, Character>;
+  environments?: Record<string, Environment>;
+  items?: Record<string, Item>;
+  metadata?: {
+    genre?: string;
+    themes?: string[];
+    mood?: string;
+  };
+  narrative?: {
+    themes: string[];
+    pacing: 'slow' | 'medium' | 'fast';
+    complexity: 'simple' | 'branching' | 'emergent';
+    agencyLevel: number; // 0-1 scale
+    storylets?: StoryletSeed[];
+  };
+  dynamics?: {
+    characterArcs: CharacterArc[];
+    conflictEscalation: ConflictPattern[];
+    worldEvents: TemporalEvent[];
+  };
 }
 
-export interface EntityConfig {
+export interface Character {
   name: string;
-  type: string;
-  alignment: string;
   description?: string;
+  type?: string;
+  alignment?: string;
   attributes?: Record<string, any>;
-  effects?: string[];
   appearance?: {
     form: string;
     height: string;
@@ -46,9 +66,9 @@ export interface EntityConfig {
   }>;
 }
 
-export interface EnvironmentConfig {
+export interface Environment {
   name: string;
-  type: string;
+  type?: string;
   description?: string;
   features?: Array<{ [feature: string]: string }>;
   seasons?: Array<{
@@ -61,6 +81,44 @@ export interface EnvironmentConfig {
     weather?: string;
   };
 }
+
+export interface Item {
+  name: string;
+  description?: string;
+  type?: string;
+  attributes?: Record<string, any>;
+  effects?: string[];
+}
+
+export interface StoryletSeed {
+  trigger: string;
+  content: string;
+  weight?: number;
+  tags?: string[];
+}
+
+export interface CharacterArc {
+  characterId: string;
+  stages: string[];
+  conflicts: string[];
+  growth: string[];
+}
+
+export interface ConflictPattern {
+  type: 'internal' | 'interpersonal' | 'societal' | 'environmental';
+  escalation: string[];
+  resolution?: string[];
+}
+
+export interface TemporalEvent {
+  trigger: string;
+  effects: string[];
+  timing: 'early' | 'middle' | 'late' | 'any';
+}
+
+// Legacy interfaces for backward compatibility
+export interface EntityConfig extends Character {}
+export interface EnvironmentConfig extends Environment {}
 
 export interface QuestConfig {
   name: string;
@@ -98,6 +156,16 @@ export interface GenerationOptions {
   target: 'godot' | 'unity' | 'web' | 'docs';
   outputDir?: string;
   verbose?: boolean;
+}
+
+export interface GenerationResult {
+  files: string[];
+  generationTime: number;
+  statistics: {
+    totalFiles: number;
+    linesOfCode: number;
+    targetPlatform: string;
+  };
 }
 
 export interface Generator {

@@ -10,7 +10,7 @@
     "test": "vitest",
     "test:e2e": "playwright test",
     "lint": "pnpm run --recursive lint",
-    "equorn": "node packages/cli/dist/index.js",
+    "equorn": "node equorn-cli.js",
     "prepare": "husky",
     "clean": "pnpm run --recursive clean"
   },

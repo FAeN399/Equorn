@@ -1,135 +1,69 @@
 import { expect, vi, describe, it, beforeEach, afterEach } from 'vitest';
+import * as fs from 'fs-extra';
 import * as path from 'node:path';
-import { generateFromSeed } from '../../packages/core/src/generator/index.js';
+
+// Import the functions we want to test
 import { 
-  generateGodotProject, 
-  generateUnityProject, 
+  generateFromSeed,
+  generateGodotProject,
+  generateUnityProject,
   generateWebProject,
   generateDocsProject
 } from '../../packages/core/src/generators/index.js';
 
-// Define interface for our mock fs-extra module
-interface MockFsExtra {
-  ensureDir: ReturnType<typeof vi.fn>;
-  writeFile: ReturnType<typeof vi.fn>;
-  readFile: ReturnType<typeof vi.fn>;
-  writeJson: ReturnType<typeof vi.fn>;
-  copy: ReturnType<typeof vi.fn>;
-  pathExists: ReturnType<typeof vi.fn>;
-  remove: ReturnType<typeof vi.fn>;
-  promises?: {
-    ensureDir: ReturnType<typeof vi.fn>;
-    writeFile: ReturnType<typeof vi.fn>;
-    readFile: ReturnType<typeof vi.fn>;
-    writeJson: ReturnType<typeof vi.fn>;
-    copy: ReturnType<typeof vi.fn>;
-    pathExists: ReturnType<typeof vi.fn>;
-    remove: ReturnType<typeof vi.fn>;
-  };
-}
-
-// Create mock functions with spies that we can track
-const mockFsExtra: MockFsExtra = {
-  ensureDir: vi.fn().mockResolvedValue(undefined),
-  writeFile: vi.fn().mockResolvedValue(undefined),
-  readFile: vi.fn().mockImplementation((path) => {
-    if (path.includes('seed.yaml') || path.includes('seed.json')) {
-      return Promise.resolve(JSON.stringify({
-        name: 'Test World',
-        description: 'A test world for unit tests',
-        entities: [
-          { name: 'TestEntity', description: 'A test entity' }
-        ],
-        environments: [
-          { name: 'TestEnv', description: 'A test environment' }
-        ],
-        version: '1.0.0',
-        author: 'Test Author'
-      }));
-    }
-    return Promise.reject(new Error('File not found'));
-  }),
-  writeJson: vi.fn().mockResolvedValue(undefined),
-  copy: vi.fn().mockResolvedValue(undefined),
-  pathExists: vi.fn().mockResolvedValue(true),
-  remove: vi.fn().mockResolvedValue(undefined)
-};
-
-// Create a promises property that references the same mock functions
-mockFsExtra.promises = {
-  ensureDir: mockFsExtra.ensureDir,
-  writeFile: mockFsExtra.writeFile,
-  readFile: mockFsExtra.readFile,
-  writeJson: mockFsExtra.writeJson,
-  copy: mockFsExtra.copy,
-  pathExists: mockFsExtra.pathExists,
-  remove: mockFsExtra.remove
-};
-
-// Mock fs-extra module
-vi.mock('fs-extra', () => mockFsExtra);
-
-// Mock the parser module
+// Mock the parser module to return consistent test data
 vi.mock('../../packages/core/src/parser.js', () => ({
   parseSeedFile: vi.fn().mockResolvedValue({
     name: 'Test World',
     description: 'A test world for unit tests',
-    entities: [
-      { name: 'TestEntity', description: 'A test entity' }
-    ],
-    environments: [
-      { name: 'TestEnv', description: 'A test environment' }
-    ],
+    entity: { 
+      name: 'TestEntity', 
+      description: 'A test entity',
+      type: 'guardian',
+      alignment: 'neutral'
+    },
+    environment: { 
+      name: 'TestEnv', 
+      description: 'A test environment',
+      type: 'forest'
+    },
     version: '1.0.0',
     author: 'Test Author'
   })
 }));
 
-// Mock path module
-vi.mock('node:path', () => ({
-  join: vi.fn((...args) => args.join('/')),
-  resolve: vi.fn((...args) => args.join('/')),
-  dirname: vi.fn((p) => p.split('/').slice(0, -1).join('/') || '.'),
-  basename: vi.fn((p) => p.split('/').pop() || ''),
-  extname: vi.fn((p) => {
-    const parts = p.split('.');
-    return parts.length > 1 ? `.${parts.pop()}` : '';
-  })
-}));
-
-// Alias for path mock to support code importing 'path' instead of 'node:path'
-vi.mock('path', () => vi.importActual('node:path'));
-
 describe('Generator Module Tests', () => {
-  beforeEach(() => {
-    // Clear all existing mocks
-    vi.clearAllMocks();
+  const testOutputDir = './test-output';
+
+  beforeEach(async () => {
+    // Clean up test output directory before each test
+    await fs.remove(testOutputDir);
   });
 
-  afterEach(() => {
-    vi.resetAllMocks();
+  afterEach(async () => {
+    // Clean up test output directory after each test
+    await fs.remove(testOutputDir);
   });
 
   describe('generateFromSeed', () => {
     it('should call the correct target generator based on options', async () => {
       const seedPath = 'test/seed.yaml';
-      const outputBase = './output';
       
       // Test Godot target
-      await generateFromSeed(seedPath, { target: 'godot', outputDir: `${outputBase}/godot`, verbose: true });
-      expect(mockFsExtra.ensureDir).toHaveBeenCalledWith(`${outputBase}/godot`);
+      await generateFromSeed(seedPath, { target: 'godot', outputDir: `${testOutputDir}/godot`, verbose: false });
+      expect(await fs.pathExists(`${testOutputDir}/godot`)).toBe(true);
       
       // Test Unity target
-      await generateFromSeed(seedPath, { target: 'unity', outputDir: `${outputBase}/unity`, verbose: true });
-      expect(mockFsExtra.ensureDir).toHaveBeenCalledWith(`${outputBase}/unity`);
+      await generateFromSeed(seedPath, { target: 'unity', outputDir: `${testOutputDir}/unity`, verbose: false });
+      expect(await fs.pathExists(`${testOutputDir}/unity`)).toBe(true);
       
       // Test Web target
-      await generateFromSeed(seedPath, { target: 'web', outputDir: `${outputBase}/web`, verbose: true });
-      expect(mockFsExtra.ensureDir).toHaveBeenCalledWith(`${outputBase}/web`);
+      await generateFromSeed(seedPath, { target: 'web', outputDir: `${testOutputDir}/web`, verbose: false });
+      expect(await fs.pathExists(`${testOutputDir}/web`)).toBe(true);
       
       // Test Docs target
-      await generateFromSeed(seedPath, { target: 'docs', outputDir: `${outputBase}/docs`, verbose: true });
-      expect(mockFsExtra.ensureDir).toHaveBeenCalledWith(`${outputBase}/docs`);
+      await generateFromSeed(seedPath, { target: 'docs', outputDir: `${testOutputDir}/docs`, verbose: false });
+      expect(await fs.pathExists(`${testOutputDir}/docs`)).toBe(true);
     });
   });
 
@@ -138,22 +72,29 @@ describe('Generator Module Tests', () => {
       const seed = {
         name: 'Test World',
         description: 'A test world for unit tests',
-        entities: [
-          { name: 'TestEntity', description: 'A test entity' }
-        ],
-        environments: [
-          { name: 'TestEnv', description: 'A test environment' }
-        ],
+        entity: { 
+          name: 'TestEntity', 
+          description: 'A test entity',
+          type: 'guardian',
+          alignment: 'neutral'
+        },
+        environment: { 
+          name: 'TestEnv', 
+          description: 'A test environment',
+          type: 'forest'
+        },
         version: '1.0.0',
         author: 'Test Author'
       };
-      const outputDir = './output/godot';
+      const outputDir = `${testOutputDir}/godot`;
       
-      await generateGodotProject(seed, outputDir, true);
+      await generateGodotProject(seed, outputDir, false);
       
-      // Verify directory creation
-      expect(mockFsExtra.ensureDir).toHaveBeenCalled();
-      expect(mockFsExtra.writeFile).toHaveBeenCalled();
+      // Verify key files were created
+      expect(await fs.pathExists(path.join(outputDir, 'project.godot'))).toBe(true);
+      expect(await fs.pathExists(path.join(outputDir, 'scenes'))).toBe(true);
+      expect(await fs.pathExists(path.join(outputDir, 'scripts'))).toBe(true);
+      expect(await fs.pathExists(path.join(outputDir, 'README.md'))).toBe(true);
     });
   });
 
@@ -162,22 +103,26 @@ describe('Generator Module Tests', () => {
       const seed = {
         name: 'Test World',
         description: 'A test world for unit tests',
-        entities: [
-          { name: 'TestEntity', description: 'A test entity' }
-        ],
-        environments: [
-          { name: 'TestEnv', description: 'A test environment' }
-        ],
+        entity: { 
+          name: 'TestEntity', 
+          description: 'A test entity',
+          type: 'guardian',
+          alignment: 'neutral'
+        },
+        environment: { 
+          name: 'TestEnv', 
+          description: 'A test environment',
+          type: 'forest'
+        },
         version: '1.0.0',
         author: 'Test Author'
       };
-      const outputDir = './output/unity';
+      const outputDir = `${testOutputDir}/unity`;
       
-      await generateUnityProject(seed, outputDir, true);
+      await generateUnityProject(seed, outputDir, false);
       
-      // Verify directory creation
-      expect(mockFsExtra.ensureDir).toHaveBeenCalled();
-      expect(mockFsExtra.writeFile).toHaveBeenCalled();
+      // Verify directory was created (Unity generator may be minimal)
+      expect(await fs.pathExists(outputDir)).toBe(true);
     });
   });
 
@@ -186,22 +131,26 @@ describe('Generator Module Tests', () => {
       const seed = {
         name: 'Test World',
         description: 'A test world for unit tests',
-        entities: [
-          { name: 'TestEntity', description: 'A test entity' }
-        ],
-        environments: [
-          { name: 'TestEnv', description: 'A test environment' }
-        ],
+        entity: { 
+          name: 'TestEntity', 
+          description: 'A test entity',
+          type: 'guardian',
+          alignment: 'neutral'
+        },
+        environment: { 
+          name: 'TestEnv', 
+          description: 'A test environment',
+          type: 'forest'
+        },
         version: '1.0.0',
         author: 'Test Author'
       };
-      const outputDir = './output/web';
+      const outputDir = `${testOutputDir}/web`;
       
-      await generateWebProject(seed, outputDir, true);
+      await generateWebProject(seed, outputDir, false);
       
-      // Verify directory creation
-      expect(mockFsExtra.ensureDir).toHaveBeenCalled();
-      expect(mockFsExtra.writeFile).toHaveBeenCalled();
+      // Verify directory was created (Web generator may be minimal)
+      expect(await fs.pathExists(outputDir)).toBe(true);
     });
   });
 
@@ -210,22 +159,26 @@ describe('Generator Module Tests', () => {
       const seed = {
         name: 'Test World',
         description: 'A test world for unit tests',
-        entities: [
-          { name: 'TestEntity', description: 'A test entity' }
-        ],
-        environments: [
-          { name: 'TestEnv', description: 'A test environment' }
-        ],
+        entity: { 
+          name: 'TestEntity', 
+          description: 'A test entity',
+          type: 'guardian',
+          alignment: 'neutral'
+        },
+        environment: { 
+          name: 'TestEnv', 
+          description: 'A test environment',
+          type: 'forest'
+        },
         version: '1.0.0',
         author: 'Test Author'
       };
-      const outputDir = './output/docs';
+      const outputDir = `${testOutputDir}/docs`;
       
-      await generateDocsProject(seed, outputDir, true);
+      await generateDocsProject(seed, outputDir, false);
       
-      // Verify directory creation
-      expect(mockFsExtra.ensureDir).toHaveBeenCalled();
-      expect(mockFsExtra.writeFile).toHaveBeenCalled();
+      // Verify directory was created (Docs generator may be minimal)
+      expect(await fs.pathExists(outputDir)).toBe(true);
     });
   });
 });

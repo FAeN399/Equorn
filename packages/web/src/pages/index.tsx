@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import Head from 'next/head';
 import { trpc } from '@/utils/trpc';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { NarrativeBuilder } from '@/components/NarrativeBuilder';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('dashboard');
-  const templates = trpc.getTemplates.useQuery();
+  const templates = trpc.getTemplates.useQuery(undefined, {
+    enabled: activeTab === 'templates'
+  });
 
   return (
     <>
@@ -51,6 +55,16 @@ export default function Home() {
                 Templates
               </button>
               <button 
+                onClick={() => setActiveTab('narrative')}
+                className={`px-4 py-2 rounded-md transition-all ${
+                  activeTab === 'narrative'
+                    ? 'text-primary-400 border-b-2 border-primary-500'
+                    : 'text-gray-400 hover:text-gray-200'
+                }`}
+              >
+                🌟 Narrative AI
+              </button>
+              <button 
                 onClick={() => setActiveTab('docs')}
                 className={`px-4 py-2 rounded-md transition-all ${
                   activeTab === 'docs'
@@ -75,112 +89,178 @@ export default function Home() {
           </div>
         </nav>
 
-        {/* Hero Section */}
-        <section className="relative py-20 overflow-hidden">
-          {/* Background cosmic effects */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary-900/20 rounded-full blur-3xl"></div>
-            <div className="absolute top-1/3 -left-24 w-72 h-72 bg-secondary-900/20 rounded-full blur-3xl"></div>
-            <div className="absolute w-1.5 h-1.5 bg-primary-400 rounded-full top-24 left-1/4 animate-pulse"></div>
-            <div className="absolute w-2 h-2 bg-secondary-400 rounded-full bottom-32 right-1/3 animate-pulse"></div>
-            <div className="absolute w-1 h-1 bg-white rounded-full top-1/2 right-1/4 animate-pulse"></div>
-          </div>
-          
-          <div className="container mx-auto px-4 relative">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="font-serif text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
-                <span className="bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
-                  Craft Mythic Worlds
-                </span>
-              </h1>
-              <p className="text-xl md:text-2xl mb-8 text-gray-300 animate-slide-up opacity-0" style={{ animationDelay: '0.2s' }}>
-                An open-source generative myth-engine that turns structured narrative 
-                blueprints into playable prototypes in minutes.
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4 animate-slide-up opacity-0" style={{ animationDelay: '0.4s' }}>
-                <button className="btn btn-primary px-8 py-3 text-lg">
-                  Get Started
-                </button>
-                <button className="btn btn-outline px-8 py-3 text-lg">
-                  Explore Templates
-                </button>
+        {/* Main Content */}
+        {activeTab === 'narrative' ? (
+          <NarrativeBuilder />
+        ) : (
+          <>
+            {/* Hero Section */}
+            <section className="relative py-20 overflow-hidden">
+              {/* Background cosmic effects */}
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary-900/20 rounded-full blur-3xl"></div>
+                <div className="absolute top-1/3 -left-24 w-72 h-72 bg-secondary-900/20 rounded-full blur-3xl"></div>
+                <div className="absolute w-1.5 h-1.5 bg-primary-400 rounded-full top-24 left-1/4 animate-pulse"></div>
+                <div className="absolute w-2 h-2 bg-secondary-400 rounded-full bottom-32 right-1/3 animate-pulse"></div>
+                <div className="absolute w-1 h-1 bg-white rounded-full top-1/2 right-1/4 animate-pulse"></div>
               </div>
-            </div>
-            
-            {/* Feature preview */}
-            <div className="mt-20 bg-dark-800/60 border border-dark-700 rounded-xl p-6 shadow-xl transform hover:scale-[1.01] transition-all duration-300 animate-slide-up opacity-0" style={{ animationDelay: '0.6s' }}>
-              <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden bg-dark-900 flex items-center justify-center">
-                <div className="text-center p-12">
-                  <div className="text-2xl font-serif text-primary-400 mb-4">Seed to World Builder</div>
-                  <div className="w-full max-w-2xl mx-auto p-4 bg-dark-800 rounded-md text-sm font-mono text-gray-300 text-left">
+              
+              <div className="container mx-auto px-4 relative">
+                <div className="max-w-4xl mx-auto text-center">
+                  <h1 className="font-serif text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
+                    <span className="bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
+                      Craft Mythic Worlds
+                    </span>
+                  </h1>
+                  <p className="text-xl md:text-2xl mb-8 text-gray-300 animate-slide-up opacity-0" style={{ animationDelay: '0.2s' }}>
+                    An open-source generative myth-engine that turns structured narrative 
+                    blueprints into playable prototypes in minutes.
+                  </p>
+                  <div className="flex flex-col sm:flex-row justify-center gap-4 animate-slide-up opacity-0" style={{ animationDelay: '0.4s' }}>
+                    <button 
+                      onClick={() => setActiveTab('narrative')}
+                      className="btn btn-primary px-8 py-3 text-lg"
+                    >
+                      🌟 Try Narrative AI
+                    </button>
+                    <button 
+                      onClick={() => setActiveTab('templates')}
+                      className="btn btn-outline px-8 py-3 text-lg"
+                    >
+                      Explore Templates
+                    </button>
+                  </div>
+                </div>
+                
+                {/* Enhanced Narrative AI Preview */}
+                <div className="mt-20 bg-dark-800/60 border border-dark-700 rounded-xl p-6 shadow-xl transform hover:scale-[1.01] transition-all duration-300 animate-slide-up opacity-0" style={{ animationDelay: '0.6s' }}>
+                  <div className="text-center mb-6">
+                    <h3 className="text-2xl font-serif text-primary-400 mb-2">🧠 Emergent Narrative Engine</h3>
+                    <p className="text-gray-300">Multi-agent AI system for dynamic storylet generation</p>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 p-4 rounded-lg border border-cyan-500/20">
+                      <div className="text-cyan-400 text-lg font-bold">📚 Storylets</div>
+                      <div className="text-sm text-gray-300">Natural language narrative triggers</div>
+                    </div>
+                    <div className="bg-gradient-to-br from-purple-500/10 to-indigo-500/10 p-4 rounded-lg border border-purple-500/20">
+                      <div className="text-purple-400 text-lg font-bold">🤖 AI Agents</div>
+                      <div className="text-sm text-gray-300">Character, plot & dialogue specialists</div>
+                    </div>
+                    <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 p-4 rounded-lg border border-green-500/20">
+                      <div className="text-green-400 text-lg font-bold">⚡ Emergent</div>
+                      <div className="text-sm text-gray-300">Real-time narrative expansion</div>
+                    </div>
+                  </div>
+                  
+                  <div className="w-full max-w-2xl mx-auto p-4 bg-dark-900 rounded-md text-sm font-mono text-gray-300 text-left">
                     <pre>
-                      {`# 1 — Bootstrap your first project
-$ pnpm equorn seed my-myth.yaml
+                      {`# Emergent narrative generation
+$ pnpm equorn emergent my-seed.yaml \\
+    --agents character,conflict,dialogue \\
+    --depth deep --iterations 3
 
-# 2 — Launch the dev dashboard
-$ pnpm dev
-
-# 3 — Open http://localhost:3000
-# and watch your world come alive`}
+🌟 Starting emergent myth generation...
+📖 Storylets: 25, Depth: deep, Iterations: 3
+🔄 Iteration 1/3
+  🤖 Character Agent: Generated 3 development arcs
+  ⚡ Conflict Agent: Escalated tension to 0.7
+  💬 Dialogue Agent: Created 5 interaction storylets
+🎯 Generated 47 total storylets
+📊 Complexity score: 0.82`}
                     </pre>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
+            </section>
 
-        {/* Features Section */}
-        <section className="py-20 bg-gradient-to-b from-transparent to-dark-900">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-12 text-center">
-              <span className="bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
-                Craft Worlds Without Friction
-              </span>
-            </h2>
+            {/* Features Section */}
+            <section className="py-20 bg-gradient-to-b from-transparent to-dark-900">
+              <div className="container mx-auto px-4">
+                <h2 className="text-3xl md:text-4xl font-serif font-bold mb-12 text-center">
+                  <span className="bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
+                    Craft Worlds Without Friction
+                  </span>
+                </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Feature 1 */}
-              <div className="card group hover:border-primary-500/50 hover:bg-dark-800">
-                <div className="w-12 h-12 mb-4 rounded-lg bg-primary-900/30 flex items-center justify-center text-primary-400 group-hover:scale-110 transition-transform">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {/* Feature 1 - Enhanced */}
+                  <motion.div 
+                    className="card group hover:border-primary-500/50 hover:bg-dark-800"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                    whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                  >
+                    <motion.div 
+                      className="w-12 h-12 mb-4 rounded-lg bg-primary-900/30 flex items-center justify-center text-primary-400 group-hover:scale-110 transition-transform"
+                      whileHover={{ rotate: 5 }}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </motion.div>
+                    <h3 className="text-xl font-serif font-bold mb-2 text-gray-100">Declarative Myth Seeds</h3>
+                    <p className="text-gray-400">
+                      Describe your world in simple YAML or JSON. Define entities, relationships, environments, and quests in a structured format.
+                    </p>
+                    <div className="mt-4 flex items-center text-sm text-primary-400">
+                      <span className="mr-2">🆕</span>
+                      <span>Now with AI narrative expansion</span>
+                    </div>
+                  </motion.div>
+
+                  {/* Feature 2 */}
+                  <motion.div 
+                    className="card group hover:border-primary-500/50 hover:bg-dark-800"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                  >
+                    <motion.div 
+                      className="w-12 h-12 mb-4 rounded-lg bg-primary-900/30 flex items-center justify-center text-primary-400 group-hover:scale-110 transition-transform"
+                      whileHover={{ rotate: -5 }}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                      </svg>
+                    </motion.div>
+                    <h3 className="text-xl font-serif font-bold mb-2 text-gray-100">Multi-Target Export</h3>
+                    <p className="text-gray-400">
+                      Generate playable scenes for Godot, Unity, or beautiful documentation hubs with a single command.
+                    </p>
+                  </motion.div>
+
+                  {/* Feature 3 - Enhanced */}
+                  <motion.div 
+                    className="card group hover:border-primary-500/50 hover:bg-dark-800"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                  >
+                    <motion.div 
+                      className="w-12 h-12 mb-4 rounded-lg bg-primary-900/30 flex items-center justify-center text-primary-400 group-hover:scale-110 transition-transform"
+                      whileHover={{ rotate: 5 }}
+                    >
+                      🧠
+                    </motion.div>
+                    <h3 className="text-xl font-serif font-bold mb-2 text-gray-100">Emergent Narrative AI</h3>
+                    <p className="text-gray-400">
+                      Multi-agent storylet system creates dynamic, branching narratives that evolve based on character interactions and world state.
+                    </p>
+                    <div className="mt-4 flex items-center text-sm text-cyan-400">
+                      <span className="mr-2">🌟</span>
+                      <span>Powered by computational narratology</span>
+                    </div>
+                  </motion.div>
                 </div>
-                <h3 className="text-xl font-serif font-bold mb-2 text-gray-100">Declarative Myth Seeds</h3>
-                <p className="text-gray-400">
-                  Describe your world in simple YAML or JSON. Define entities, relationships, environments, and quests in a structured format.
-                </p>
               </div>
-
-              {/* Feature 2 */}
-              <div className="card group hover:border-primary-500/50 hover:bg-dark-800">
-                <div className="w-12 h-12 mb-4 rounded-lg bg-primary-900/30 flex items-center justify-center text-primary-400 group-hover:scale-110 transition-transform">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-serif font-bold mb-2 text-gray-100">Multi-Target Export</h3>
-                <p className="text-gray-400">
-                  Generate playable scenes for Godot, Unity, or beautiful documentation hubs with a single command.
-                </p>
-              </div>
-
-              {/* Feature 3 */}
-              <div className="card group hover:border-primary-500/50 hover:bg-dark-800">
-                <div className="w-12 h-12 mb-4 rounded-lg bg-primary-900/30 flex items-center justify-center text-primary-400 group-hover:scale-110 transition-transform">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-serif font-bold mb-2 text-gray-100">Real-Time Preview</h3>
-                <p className="text-gray-400">
-                  Watch your myth come to life in the dashboard as you refine your seed. Interactive visualization lets you iterate rapidly.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+            </section>
+          </>
+        )}
 
         {/* Templates Gallery */}
         {activeTab === 'templates' && (
@@ -199,12 +279,29 @@ $ pnpm dev
                     Failed to load templates. Please try again.
                   </div>
                 ) : (
-                  templates.data?.map((template: { id: string; name: string; description: string }) => (
-                    <div key={template.id} className="card hover:border-primary-500/50">
+                  templates.data?.map((template: { id: string; name: string; description: string }, index: number) => (
+                    <motion.div 
+                      key={template.id} 
+                      className="card hover:border-primary-500/50"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      whileHover={{ 
+                        scale: 1.05, 
+                        boxShadow: "0 10px 30px rgba(139, 92, 246, 0.3)",
+                        transition: { duration: 0.2 }
+                      }}
+                    >
                       <h3 className="text-xl font-serif font-bold mb-2">{template.name}</h3>
                       <p className="text-gray-400 mb-4">{template.description}</p>
-                      <button className="btn btn-outline text-sm">Use Template</button>
-                    </div>
+                      <motion.button 
+                        className="btn btn-outline text-sm"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        Use Template
+                      </motion.button>
+                    </motion.div>
                   ))
                 )}
               </div>
