@@ -268,3 +268,15 @@ public class MythManager : MonoBehaviour
     }` : '// No quest methods defined'}
 }`;
 }
+
+/**
+ * Spawn the Unity generator as a separate asynchronous task.
+ * Currently this simply calls {@link generateUnityProject}.
+ */
+export async function spawnUnityGenerator(
+  seed: SeedConfig,
+  outputDir: string,
+  verbose: boolean = false
+): Promise<void> {
+  await generateUnityProject(seed, outputDir, verbose);
+}
