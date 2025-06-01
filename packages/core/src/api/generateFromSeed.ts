@@ -64,22 +64,22 @@ export async function generateFromSeed(
       if (verbose) {
         console.log(`🎯 Generating unity project...`);
       }
-      // TODO: Implement Unity target
-      throw new Error('Unity target not yet implemented');
+      generatedFiles = await standalone.generateUnityProject(seedData, outputDir, verbose);
+      break;
       
     case 'web':
       if (verbose) {
         console.log(`🎯 Generating web project...`);
       }
-      // TODO: Implement Web target
-      throw new Error('Web target not yet implemented');
+      generatedFiles = await standalone.generateWebProject(seedData, outputDir, verbose);
+      break;
       
     case 'docs':
       if (verbose) {
         console.log(`🎯 Generating documentation...`);
       }
-      // TODO: Implement Docs target
-      throw new Error('Documentation target not yet implemented');
+      generatedFiles = await standalone.generateDocsProject(seedData, outputDir, verbose);
+      break;
       
     default:
       throw new Error(`Unknown target: ${target}`);

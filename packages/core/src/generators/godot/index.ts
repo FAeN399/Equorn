@@ -130,7 +130,6 @@ var velocity = Vector2()
 
 func _ready():
 	print("${entity.name} is ready!")
-${entity.effects ? `\n\t# Effects: ${entity.effects}` : ''}
 
 func _process(delta):
 	# Handle input

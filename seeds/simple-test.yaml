@@ -1,0 +1,38 @@
+# Simple Test Seed - Minimal example for testing Equorn functionality
+# This seed demonstrates the basic structure required for generation
+
+# World definition - describes the overall setting
+world:
+  name: "Test Realm"
+  description: "A simple world for testing the Equorn engine"
+  theme: "minimal"
+
+# Entities - characters, creatures, or objects in the world
+entities:
+  - type: guardian          # Entity type (guardian, npc, creature, etc.)
+    name: "Test Guardian"   # Display name
+    description: "A simple guardian for testing"
+    location: "test_area"   # Where this entity is located
+    abilities:              # List of abilities this entity has
+      - "basic_attack"
+      - "defend"
+
+# Locations - areas in the world
+locations:
+  - name: "test_area"
+    description: "A basic test location"
+    connections:            # Connected areas
+      - "exit"
+    
+  - name: "exit"
+    description: "The way out"
+    connections:
+      - "test_area"
+
+# Interactions - how entities respond to player actions
+interactions:
+  - trigger: "talk_to_guardian"
+    type: "dialogue"
+    responses:
+      - "Hello, this is a test."
+      - "Everything seems to be working." 

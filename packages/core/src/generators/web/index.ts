@@ -438,7 +438,6 @@ export function generateWebHTML(seed: SeedConfig): string {
             ${Object.entries(seed.entity.attributes).map(([key, value]) => `<li><strong>${key}:</strong> ${value}</li>`).join('\n            ')}
           </ul>
           ` : ''}
-          ${seed.entity?.effects ? `<p><em>Effects: ${seed.entity.effects}</em></p>` : ''}
           ${seed.entity?.interactions ? `<p><em>Interactions available</em></p>` : ''}
         </div>
       </section>

@@ -100,7 +100,6 @@ public class ${entity.name} : MonoBehaviour
     void Start()
     {
         Debug.Log($"{entityName} of type {entityType} is ready!");
-        ${entity.effects ? `// Effects: ${entity.effects}` : ''}
     }
 
     // Update is called once per frame

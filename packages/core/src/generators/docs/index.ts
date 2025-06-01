@@ -253,12 +253,6 @@ ${entity.description ? escapeMarkdown(entity.description) : 'No description avai
 
 ${attributesSection}
 
-${entity.effects && entity.effects.length > 0 ? `
-## Effects
-
-${entity.effects.map(effect => `- ${escapeMarkdown(effect)}`).join('\n')}
-` : ''}
-
 ${entity.interactions && entity.interactions.length > 0 ? `
 ## Interactions
 
