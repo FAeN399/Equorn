@@ -53,6 +53,11 @@ $ pnpm dev
 
 # 5 — Open http://localhost:3000 to explore the generated realm
 ```
+### 3.4 Seed Examples
+- `seeds/forest-guardian.yaml`
+- `seeds/mystic-tower.yaml`
+- `seeds/ocean-depths.yaml`
+
 
 ### 3.3 Docker (Optional)
 ```bash

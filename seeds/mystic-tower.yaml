@@ -1,0 +1,33 @@
+world:
+  name: "Mystic Tower"
+  description: "A towering spire filled with arcane secrets and magical traps"
+  theme: "arcane_mystery"
+
+entities:
+  - type: guardian
+    name: "Arcana Sentinel"
+    description: "A construct of pure magic guarding the tower's heart"
+    location: "grand_library"
+    abilities:
+      - "arcane_blast"
+      - "teleport"
+      - "spell_shield"
+
+locations:
+  - name: "grand_library"
+    description: "A vast hall of floating tomes and shifting staircases"
+    connections:
+      - "astral_observatory"
+
+  - name: "astral_observatory"
+    description: "A dome where stars align to fuel ancient rituals"
+    connections:
+      - "grand_library"
+      - "sealed_chamber"
+
+interactions:
+  - trigger: "enter_library"
+    type: "dialogue"
+    responses:
+      - "Knowledge has a price. Are you willing to pay?"
+      - "The sentinel's eyes glow with unspoken warnings."

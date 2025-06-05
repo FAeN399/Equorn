@@ -1,0 +1,33 @@
+world:
+  name: "Ocean Depths"
+  description: "A submerged realm of glowing ruins and lurking leviathans"
+  theme: "aquatic_ruins"
+
+entities:
+  - type: guardian
+    name: "Tidewatcher"
+    description: "An ancient sea spirit that guides lost sailors"
+    location: "sunken_temple"
+    abilities:
+      - "tidal_wave"
+      - "water_breath"
+      - "currents_call"
+
+locations:
+  - name: "sunken_temple"
+    description: "Collapsed pillars where water currents whisper forgotten prayers"
+    connections:
+      - "kelp_forest"
+
+  - name: "kelp_forest"
+    description: "Towering fronds sway in the deep, concealing hidden dangers"
+    connections:
+      - "sunken_temple"
+      - "abyssal_trench"
+
+interactions:
+  - trigger: "seek_spirit"
+    type: "dialogue"
+    responses:
+      - "The tides speak through me. What do you seek?"
+      - "Bubbles rise as the guardian gestures toward the darkened trench."
